@@ -1,8 +1,8 @@
-namespace RateLimiters
+namespace RateLimiters;
+
+public interface IRateLimiter
 {
-    public interface IRateLimiter
-    {
-        Task<bool> IsAllowed(string requestId);
-    }
+    Task<RateLimiterResponse> IsAllowed(string requestId);
 }
+
 
