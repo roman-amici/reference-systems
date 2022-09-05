@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using RateLimiters;
 
 namespace aspnet.Controllers;
 
@@ -7,15 +8,18 @@ namespace aspnet.Controllers;
 public class RequestController : ControllerBase
 {
     private readonly ILogger<RequestController> _logger;
+    private readonly IRateLimiter _rateLimiter;
 
-    public RequestController(ILogger<RequestController> logger)
+    public RequestController(ILogger<RequestController> logger, IRateLimiter rateLimiter)
     {
         _logger = logger;
+        _rateLimiter = rateLimiter;
     }
 
     [HttpGet(Name = "GetRequest")]
-    public async Task<bool> Get()
+    [Route("{requestId}")]
+    public Task<RateLimiterResponse> Get(string requestId)
     {
-        return false;
+        return _rateLimiter.IsAllowed(requestId);
     }
 }

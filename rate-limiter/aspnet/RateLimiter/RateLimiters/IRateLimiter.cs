@@ -2,7 +2,7 @@ namespace RateLimiters;
 
 public interface IRateLimiter
 {
-    Task<RateLimiterResponse> IsAllowed(string requestId);
+    public Task<RateLimiterResponse> IsAllowed(string requestId);
 }
 
 
